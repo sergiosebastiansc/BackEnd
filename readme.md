@@ -8,7 +8,6 @@ API REST construida con **Node.js** y **Express**. Este sistema permite consulta
 
 - **Node.js**
 - **Express**
-- **Morgan**
 - **Nodemon**
 - **JSON** como almacenamiento simulado
 
@@ -16,19 +15,19 @@ API REST construida con **Node.js** y **Express**. Este sistema permite consulta
 
 ## ⚙️ Instalación y ejecución del proyecto
 
-Para ejecutar el proyecto localmente, primero instala las dependencias:
+Para ejecutar el proyecto localmente, instalar las dependencias:
 
 ```bash
 npm install
 ```
 
-Luego levanta el servidor en modo desarrollo:
+Luego levantar el servidor en modo desarrollo:
 
 ```bash
 npm run dev
 ```
 
-Si todo está correcto, la terminal debería mostrar un mensaje similar a:
+Si todo está correcto, la terminal debería mostrar el mensaje:
 
 ```bash
 Servidor corriendo en http://localhost:3000
@@ -45,10 +44,10 @@ Servidor corriendo en http://localhost:3000
 | `GET` | `/espacios` | Obtiene la lista completa de espacios disponibles. | `200 OK` |
 | `GET` | `/reservas` | Obtiene la lista completa de reservas realizadas. | `200 OK` |
 | `POST` | `/reservas` | Crea una nueva reserva. | `201 Created` |
+| `DELETE` | `/reservas/:id` | Elimina una reserva específica por su ID. | `204` |
+| `PUT` | `/reservas/:id` | Actualiza el estado de una reserva existente. | `200` |
 
-### Endpoints pendientes
 
-Actualmente el proyecto **no tiene implementadas** rutas `PUT` ni `DELETE` para reservas. Por eso no se incluyen dentro de las pruebas principales de Thunder Client.
 
 ---
 
@@ -83,7 +82,6 @@ http://localhost:3000/espacios
 8. En las pruebas `POST`, seleccionar la pestaña **Body**, elegir formato **JSON** y escribir el cuerpo de la solicitud.
 9. Presionar **Send**.
 10. Revisar que el **status code** y la **respuesta JSON** coincidan con lo esperado.
-11. Tomar captura de pantalla para documentar la prueba en el README.
 
 ---
 
@@ -323,46 +321,4 @@ http://localhost:3000/reservas
 {
   "msg": "Ya existe una reserva para ese horario y oficina seleccionados."
 }
-```
-
-### Captura
-
-![Prueba POST reserva con conflicto](./docs/img/post-reserva-conflicto.png)
-
----
-
-## 📸 ¿Qué debe mostrar cada captura?
-
-Cada captura tomada desde Thunder Client debe mostrar claramente:
-
-- El **método HTTP** utilizado, por ejemplo `GET` o `POST`.
-- La **URL completa** de la prueba.
-- El **Body JSON**, solo cuando la prueba sea `POST`.
-- El **status code** devuelto por el servidor, por ejemplo `200`, `201`, `400` o `404`.
-- La **respuesta JSON** enviada por la API.
-
-Ejemplo de nombre recomendado para las imágenes:
-
-```text
-docs/img/get-espacios.png
-docs/img/get-reservas.png
-docs/img/post-reserva-exitosa.png
-docs/img/post-reserva-campos-faltantes.png
-docs/img/post-reserva-espacio-inexistente.png
-docs/img/post-reserva-conflicto.png
-```
-
----
-
-## 🗂️ Estructura sugerida para guardar capturas
-
-```text
-docs/
-└── img/
-    ├── get-espacios.png
-    ├── get-reservas.png
-    ├── post-reserva-exitosa.png
-    ├── post-reserva-campos-faltantes.png
-    ├── post-reserva-espacio-inexistente.png
-    └── post-reserva-conflicto.png
 ```
