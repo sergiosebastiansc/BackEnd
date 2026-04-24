@@ -1,15 +1,17 @@
-// iniciar aplicación de express
+// iniciar la aplicación de express
 
 const express = require("express");
-const morgan = require("morgan");
+const cors = require("cors");
 const espaciosRoutes = require("./routes/espacios.routes")
-const reservarRoutes = require("./routes/reservas.routes")
-
+const reservarRoutes = require("./routes/reservas.routes");
+const errorHandler = require("./middlewares/errorHandler");
+const notFound = require("./middlewares/notFound");
 const app = express();
 
 
 //middlewares
 app.use(express.json());  
+app.use(cors());
 
 app.use((req, res, next)=>{ 
 
@@ -27,12 +29,15 @@ app.use((req, res, next)=>{
 
 
 // Rutas de espacios
-app.use("/espacios", espaciosRoutes);
+app.use("/espacios", espaciosRoutes); 
 
 // Rutas de reservas
 app.use("/reservas", reservarRoutes);
 
+ // manejador de rutas no definidas.
+app.use(notFound);
+// sobreescribir el manejador de errores de express.
+app.use(errorHandler); 
+
 
 module.exports = app;
-
-
