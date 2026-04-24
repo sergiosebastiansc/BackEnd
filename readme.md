@@ -9,25 +9,25 @@ API REST construida con **Node.js** y **Express**. Este sistema permite consulta
 - **Node.js**
 - **Express**
 - **Nodemon**
-- **JSON** como almacenamiento simulado
+- **JSON** 
 
 ---
 
 ## ⚙️ Instalación y ejecución del proyecto
 
-Para ejecutar el proyecto localmente, instalar las dependencias:
+Para ejecutar el proyecto localmente, primero instala las dependencias:
 
 ```bash
 npm install
 ```
 
-Luego levantar el servidor en modo desarrollo:
+Luego levanta el servidor en modo desarrollo:
 
 ```bash
 npm run dev
 ```
 
-Si todo está correcto, la terminal debería mostrar el mensaje:
+Si todo está correcto, la terminal debería mostrar un mensaje similar a:
 
 ```bash
 Servidor corriendo en http://localhost:3000
@@ -44,9 +44,6 @@ Servidor corriendo en http://localhost:3000
 | `GET` | `/espacios` | Obtiene la lista completa de espacios disponibles. | `200 OK` |
 | `GET` | `/reservas` | Obtiene la lista completa de reservas realizadas. | `200 OK` |
 | `POST` | `/reservas` | Crea una nueva reserva. | `201 Created` |
-| `DELETE` | `/reservas/:id` | Elimina una reserva específica por su ID. | `204` |
-| `PUT` | `/reservas/:id` | Actualiza el estado de una reserva existente. | `200` |
-
 
 
 ---
@@ -82,6 +79,7 @@ http://localhost:3000/espacios
 8. En las pruebas `POST`, seleccionar la pestaña **Body**, elegir formato **JSON** y escribir el cuerpo de la solicitud.
 9. Presionar **Send**.
 10. Revisar que el **status code** y la **respuesta JSON** coincidan con lo esperado.
+11. Tomar captura de pantalla para documentar la prueba en el README.
 
 ---
 
@@ -89,11 +87,12 @@ http://localhost:3000/espacios
 
 | N° | Método | URL | Caso probado | Status esperado | Captura |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | `GET` | `http://localhost:3000/reservas` | Listar reservas existentes | `200 OK` | `./docs/img/get-reservas.png` |
-| 2 | `POST` | `http://localhost:3000/reservas` | Crear reserva exitosa | `201 Created` | `./docs/img/post-reserva-exitosa.png` |
-| 3 | `POST` | `http://localhost:3000/reservas` | Validar campos faltantes | `400 Bad Request` | `./docs/img/post-reserva-campos-faltantes.png` |
-| 4 | `POST` | `http://localhost:3000/reservas` | Validar espacio inexistente | `404 Not Found` | `./docs/img/post-reserva-espacio-inexistente.png` |
-| 5 | `POST` | `http://localhost:3000/reservas` | Validar conflicto de horario | `400 Bad Request` | `./docs/img/post-reserva-conflicto.png` |
+| 1 | `GET` | `http://localhost:3000/espacios` | Listar espacios disponibles | `200 OK` | `./docs/img/get-espacios.png` |
+| 2 | `GET` | `http://localhost:3000/reservas` | Listar reservas con datos registrados | `200 OK` | `./docs/img/get-reservas-con-datos1.png` |
+| 3 | `POST` | `http://localhost:3000/reservas` | Crear reserva exitosa | `201 Created` | `./docs/img/post-reserva-exitosa.PNG` |
+| 4 | `POST` | `http://localhost:3000/reservas` | Validar campos faltantes | `400 Bad Request` | `./docs/img/post-reserva-campos-faltantes.PNG` |
+| 5 | `POST` | `http://localhost:3000/reservas` | Validar espacio inexistente | `404 Not Found` | `./docs/img/post-reserva-espacio-inexistente.PNG` |
+| 6 | `POST` | `http://localhost:3000/reservas` | Validar conflicto de horario | `400 Bad Request` | `./docs/img/post-reserva-conflicto.PNG` |
 
 ---
 
@@ -120,14 +119,15 @@ http://localhost:3000/espacios
 ### Captura
 
 ![Prueba GET espacios](./docs/img/get-espacios.png)
+![Prueba GET espacios](./docs/img/get-espacios2.png)
 
 ---
 
-## 2. Prueba GET /reservas
+## 2. Prueba GET /reservas (con datos)
 
 ### Objetivo
 
-Comprobar que la API devuelve correctamente la lista de reservas existentes.
+Comprobar que la API devuelve correctamente las reservas registradas en el sistema después de haber creado al menos una reserva.
 
 ### Configuración en Thunder Client
 
@@ -140,12 +140,49 @@ http://localhost:3000/reservas
 
 ### Resultado esperado
 
+- **Status:** `200 OK`
+- **Respuesta:** arreglo JSON con las reservas almacenadas, incluyendo propiedades como `id`, `espacioId`, `fecha`, `horaInicio` y `horaFin`.
+
+### Captura
+
+![Prueba GET reservas con datos](./docs/img/get-reservas-con-datos1.png)
+
+---
+
+## 3. Prueba POST /reservas - reserva exitosa
+
+### Objetivo
+
+Comprobar que la API permite crear una reserva cuando todos los datos son válidos.
+
+### Configuración en Thunder Client
+
+- **Método:** `POST`
+- **URL:**
+
+```txt
+http://localhost:3000/reservas
+```
+
+- **Body JSON:**
+
+```json
+{
+  "espacioId": 1,
+  "fecha": "2026-05-10",
+  "horaInicio": "10:00",
+  "horaFin": "11:00"
+}
+```
+
+### Resultado esperado
+
 - **Status:** `201 Created`
 - **Respuesta:** objeto JSON con la reserva creada y un `id` generado automáticamente.
 
 ### Captura
 
-![Prueba POST reserva exitosa](./docs/img/post-reserva-exitosa.png)
+![Prueba POST reserva exitosa](./docs/img/post-reserva-exitosa.PNG)
 
 ---
 
@@ -186,7 +223,7 @@ http://localhost:3000/reservas
 
 ### Captura
 
-![Prueba POST reserva con campos faltantes](./docs/img/post-reserva-campos-faltantes.png)
+![Prueba POST reserva con campos faltantes](./docs/img/post-reserva-campos-faltantes.PNG)
 
 ---
 
@@ -229,7 +266,7 @@ http://localhost:3000/reservas
 
 ### Captura
 
-![Prueba POST reserva con espacio inexistente](./docs/img/post-reserva-espacio-inexistente.png)
+![Prueba POST reserva con espacio inexistente](./docs/img/post-reserva-espacio-inexistente.PNG)
 
 ---
 
@@ -284,3 +321,9 @@ http://localhost:3000/reservas
   "msg": "Ya existe una reserva para ese horario y oficina seleccionados."
 }
 ```
+
+### Captura
+
+![Prueba POST reserva con conflicto](./docs/img/post-reserva-conflicto.PNG)
+
+---
