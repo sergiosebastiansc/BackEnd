@@ -89,12 +89,11 @@ http://localhost:3000/espacios
 
 | N° | Método | URL | Caso probado | Status esperado | Captura |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | `GET` | `http://localhost:3000/espacios` | Listar espacios disponibles | `200 OK` | `./docs/img/get-espacios.png` |
-| 2 | `GET` | `http://localhost:3000/reservas` | Listar reservas existentes | `200 OK` | `./docs/img/get-reservas.png` |
-| 3 | `POST` | `http://localhost:3000/reservas` | Crear reserva exitosa | `201 Created` | `./docs/img/post-reserva-exitosa.png` |
-| 4 | `POST` | `http://localhost:3000/reservas` | Validar campos faltantes | `400 Bad Request` | `./docs/img/post-reserva-campos-faltantes.png` |
-| 5 | `POST` | `http://localhost:3000/reservas` | Validar espacio inexistente | `404 Not Found` | `./docs/img/post-reserva-espacio-inexistente.png` |
-| 6 | `POST` | `http://localhost:3000/reservas` | Validar conflicto de horario | `400 Bad Request` | `./docs/img/post-reserva-conflicto.png` |
+| 1 | `GET` | `http://localhost:3000/reservas` | Listar reservas existentes | `200 OK` | `./docs/img/get-reservas.png` |
+| 2 | `POST` | `http://localhost:3000/reservas` | Crear reserva exitosa | `201 Created` | `./docs/img/post-reserva-exitosa.png` |
+| 3 | `POST` | `http://localhost:3000/reservas` | Validar campos faltantes | `400 Bad Request` | `./docs/img/post-reserva-campos-faltantes.png` |
+| 4 | `POST` | `http://localhost:3000/reservas` | Validar espacio inexistente | `404 Not Found` | `./docs/img/post-reserva-espacio-inexistente.png` |
+| 5 | `POST` | `http://localhost:3000/reservas` | Validar conflicto de horario | `400 Bad Request` | `./docs/img/post-reserva-conflicto.png` |
 
 ---
 
@@ -137,43 +136,6 @@ Comprobar que la API devuelve correctamente la lista de reservas existentes.
 
 ```txt
 http://localhost:3000/reservas
-```
-
-### Resultado esperado
-
-- **Status:** `200 OK`
-- **Respuesta:** arreglo JSON con las reservas registradas.
-
-### Captura
-
-![Prueba GET reservas](./docs/img/get-reservas.png)
-
----
-
-## 3. Prueba POST /reservas - reserva exitosa
-
-### Objetivo
-
-Comprobar que la API permite crear una reserva cuando todos los datos son válidos.
-
-### Configuración en Thunder Client
-
-- **Método:** `POST`
-- **URL:**
-
-```txt
-http://localhost:3000/reservas
-```
-
-- **Body JSON:**
-
-```json
-{
-  "espacioId": 1,
-  "fecha": "2026-05-10",
-  "horaInicio": "10:00",
-  "horaFin": "11:00"
-}
 ```
 
 ### Resultado esperado
