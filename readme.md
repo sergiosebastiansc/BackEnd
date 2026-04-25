@@ -9,25 +9,25 @@ API REST construida con **Node.js** y **Express**. Este sistema permite consulta
 - **Node.js**
 - **Express**
 - **Nodemon**
-- **JSON** 
+- **JSON** como almacenamiento simulado
 
 ---
 
 ## ⚙️ Instalación y ejecución del proyecto
 
-Para ejecutar el proyecto localmente, primero instala las dependencias:
+Para ejecutar el proyecto localmente, primero instalar las dependencias:
 
 ```bash
 npm install
 ```
 
-Luego levanta el servidor en modo desarrollo:
+Luego levantar el servidor en modo desarrollo:
 
 ```bash
 npm run dev
 ```
 
-Si todo está correcto, la terminal debería mostrar un mensaje similar a:
+Si todo está correcto, la terminal debería mostrar el mensaje:
 
 ```bash
 Servidor corriendo en http://localhost:3000
@@ -37,13 +37,13 @@ Servidor corriendo en http://localhost:3000
 
 ## 📋 Documentación de Endpoints
 
-> Nota: las rutas reales del proyecto no usan `/api`. Por eso las pruebas deben ejecutarse directamente sobre `/espacios` y `/reservas`.
 
 | Método | Endpoint | Descripción | Estado esperado |
 | :--- | :--- | :--- | :--- |
 | `GET` | `/espacios` | Obtiene la lista completa de espacios disponibles. | `200 OK` |
 | `GET` | `/reservas` | Obtiene la lista completa de reservas realizadas. | `200 OK` |
 | `POST` | `/reservas` | Crea una nueva reserva. | `201 Created` |
+
 
 
 ---
@@ -85,14 +85,14 @@ http://localhost:3000/espacios
 
 ## 📌 Tabla resumen de pruebas
 
-| N° | Método | URL | Caso probado | Status esperado | Captura |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | `GET` | `http://localhost:3000/espacios` | Listar espacios disponibles | `200 OK` | `./docs/img/get-espacios.png` |
-| 2 | `GET` | `http://localhost:3000/reservas` | Listar reservas con datos registrados | `200 OK` | `./docs/img/get-reservas-con-datos1.png` |
-| 3 | `POST` | `http://localhost:3000/reservas` | Crear reserva exitosa | `201 Created` | `./docs/img/post-reserva-exitosa.PNG` |
-| 4 | `POST` | `http://localhost:3000/reservas` | Validar campos faltantes | `400 Bad Request` | `./docs/img/post-reserva-campos-faltantes.PNG` |
-| 5 | `POST` | `http://localhost:3000/reservas` | Validar espacio inexistente | `404 Not Found` | `./docs/img/post-reserva-espacio-inexistente.PNG` |
-| 6 | `POST` | `http://localhost:3000/reservas` | Validar conflicto de horario | `400 Bad Request` | `./docs/img/post-reserva-conflicto.PNG` |
+| N° | Método | URL | Caso probado | Status esperado |
+| :--- | :--- | :--- | :--- | :--- | 
+| 1 | `GET` | `http://localhost:3000/espacios` | Listar espacios disponibles | `200 OK` | 
+| 2 | `GET` | `http://localhost:3000/reservas` | Listar reservas con datos registrados | `200 OK` |
+| 3 | `POST` | `http://localhost:3000/reservas` | Crear reserva exitosa | `201 Created` | 
+| 4 | `POST` | `http://localhost:3000/reservas` | Validar campos faltantes | `400 Bad Request` |
+| 5 | `POST` | `http://localhost:3000/reservas` | Validar espacio inexistente | `404 Not Found` | 
+| 6 | `POST` | `http://localhost:3000/reservas` | Validar conflicto de horario | `400 Bad Request` | 
 
 ---
 
