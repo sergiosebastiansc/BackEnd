@@ -1,7 +1,6 @@
 // iniciar la aplicación de express
 
 const express = require("express");
-const cors = require("cors");
 const espaciosRoutes = require("./routes/espacios.routes")
 const reservarRoutes = require("./routes/reservas.routes");
 const errorHandler = require("./middlewares/errorHandler");
@@ -11,7 +10,6 @@ const app = express();
 
 //middlewares
 app.use(express.json());  
-app.use(cors());
 
 app.use((req, res, next)=>{ 
 
