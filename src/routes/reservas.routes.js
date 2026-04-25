@@ -1,5 +1,5 @@
 const express = require("express");
-const { obtenerReservas, crearReserva } = require("../controllers/reservas.controllers");
+const { obtenerReservas, crearReserva, actualizarReserva, borrarReserva } = require("../controllers/reservas.controllers");
 const validateReserva = require("../middlewares/validateReserva");
 const validarConflicto = require("../middlewares/validarConflicto");
 
