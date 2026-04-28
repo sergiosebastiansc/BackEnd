@@ -1,6 +1,6 @@
 -estructurar variables de entorno y su insercion en el manejo de credenciales y datos sencibles
 
--hacer carpeta database y moongose.js
+-hacer carpeta database y moongose.js (listo SS)
 
 -middleware de auntenticacion JWT y encriptacion
 
