@@ -1,13 +1,27 @@
-//cargar env
+// =========================
+// SECCIÓN: CARGA DE VARIABLES DE ENTORNO (.env sin dotenv)
+// =========================
 process.loadEnvFile();
-
-// Levantar el servidor
+// =========================
+// SECCIÓN: Inicio del servidor y conexión a MongoDB
+// =========================
 
 const app = require("./app");
-
-const PORT = process.env.PORT || 3000;
 const { connect } = require("./database/mongoose");
 
-app.listen(PORT, ()=> {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`)
-})
+const PORT = process.env.PORT || 3000;
+
+async function startServer() {
+  try {
+    await connect();
+
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Error al conectar MongoDB o levantar el servidor:", error.message);
+    process.exit(1);
+  }
+}
+
+startServer();
