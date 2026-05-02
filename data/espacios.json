@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "nombre": "Oficina Ejecutiva",
+        "capacidad": 10,
+        "precio": "45/hora",
+        "ubicación": "Primer piso",
+        "disponibilidad": true
+    },
+   {
+        "id": 2,
+        "nombre": "Sala De Directorio",
+        "capacidad": 12,
+        "precio": "80/hora",
+        "ubicación": "Segundo piso",
+        "disponibilidad": true
+    },
+    {
+        "id": 3,
+        "nombre": "Sala Flexible",
+        "capacidad": 1,
+        "precio": "15/hora",
+        "ubicación": "Tercer piso",
+        "disponibilidad": true
+    },
+    {
+        "id": 4,
+        "nombre": "Espacio Dinámico",
+        "capacidad": 6,
+        "precio": "60/hora",
+        "ubicación": "Tercer piso",
+        "disponibilidad": true
+    }
+]
