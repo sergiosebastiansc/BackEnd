@@ -1,5 +1,5 @@
 const { connect } = require("../database/mongoose");
-const { obtenerTodasLasReservas, crearUnaNuevaReserva, obtenerReservasPorUsuario } = require("../models/reservas.mogoose");
+const { obtenerTodasLasReservas, crearUnaNuevaReserva, obtenerReservasPorUsuario } = require("../models/reservas.mongoose")
 
 const obtenerReservas = async (req, res) => {
     try {

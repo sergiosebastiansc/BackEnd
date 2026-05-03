@@ -1,5 +1,5 @@
 const { connect } = require("../database/mongoose");
-const { encontrarReservaPrevia } = require("../models/reservas.mogoose");
+const { encontrarReservaPrevia } = require("../models/reservas.mongoose");
 
 
 const validarConflicto = async (req, res, next) => {
