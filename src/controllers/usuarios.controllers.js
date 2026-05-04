@@ -1,12 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { crearNuevoUsuario, encontrarUsuarioPorEmail } = require("../models/usuarios.mongoose");
+const { crearNuevoUsuario, encontrarUsuarioPorEmail, encontrarTodosLosUsuarios, actualizarUsuario, eliminarUsuario } = require("../models/usuarios.mongoose");
 const { connect } = require('../database/mongoose');
 
 const registrar = async (req, res, next) => {
 
     try {
-        const { nombre, email, password } = req.body; //valida los datos
+        const { nombre, email, password } = req.body; 
         await connect();
 
         // consulta al modelo para crear el documento en la base de datos
@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
             return res.status(401).json({msg: "Credenciales inválidas."})
         }
 
-        const passwordValidate = await bycrypt.compare(password, usuario.password); //compara password ingresado vs hash guardado
+        const passwordValidate = await bcrypt.compare(password, usuario.password); //compara password ingresado vs hash guardado
 
         if(!passwordValidate) { //Validar password
             return res.status(401).json({msg: "Credenciales inválidas."})
@@ -57,7 +57,45 @@ const login = async (req, res, next) => {
 
 }
 
+const obtenerUsuarios = async (req, res, next) => {
+    try {
+        await connect(); // Conectas
+        const lista = await encontrarTodosLosUsuarios(); // Llamas a tu modelo
+        res.status(200).json(lista); // Devuelves la lista
+    } catch (error) {
+        next(error);
+    }
+};
+
+// Función esencial para Editar
+const editar = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await connect();
+        const usuario = await actualizarUsuario(id, req.body);
+        res.status(200).json({ msg: "Usuario actualizado", usuario });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// Función esencial para Eliminar
+const eliminar = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        await connect();
+        await eliminarUsuario(id);
+        res.status(200).json({ msg: "Usuario eliminado" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+
 module.exports = {
     registrar,
-    login
-}
+    login,
+    obtenerUsuarios,
+    editar,
+    eliminar
+};

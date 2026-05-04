@@ -1,5 +1,7 @@
 const { connect } = require("../database/mongoose");
-const { obtenerTodasLasReservas, crearUnaNuevaReserva, obtenerReservasPorUsuario } = require("../models/reservas.mongoose")
+const { obtenerTodasLasReservas, crearUnaNuevaReserva, obtenerReservasPorUsuario, encontrarReservaPrevia, actualizarUnaReserva, eliminarUnaReserva} = require("../models/reservas.mongoose")
+
+const { actualizarEspacio } = require("../models/espacios.mongoose");
 
 const obtenerReservas = async (req, res) => {
     try {
@@ -15,23 +17,24 @@ const obtenerReservas = async (req, res) => {
 };
 
 const crearReserva = async (req, res, next) => {
-
-    const { espacioId, fecha, horaInicio, horaFin } = req.body;
+    const { espacio, fecha, horaInicio, horaFin } = req.body;
 
     try {
         await connect();        
-        const nuevoId = Date.now();
-         const nuevaReserva = {
-            usuario,
+        
+        const nuevaReserva = {
+            usuario: req.user.id, 
             espacio,
             fecha,
             horaInicio,
             horaFin
-         };
+        };
     
-         const reservaCreada = await createReserva(nuevaReserva);
+        const reservaCreada = await crearUnaNuevaReserva(nuevaReserva);
+
+        await actualizarEspacio(espacio, { disponibilidad: false });
     
-         res.status(201).json(reservaCreada);
+        res.status(201).json(reservaCreada);
     } catch (error) {
         next(error);       
     }
@@ -52,7 +55,7 @@ const actualizarReserva = async (req, res) => {
     try {
         const { id } = req.params;
         await connect();
-        const actualizada = await ReservaModel.updateReserva(id, req.body);
+        const actualizada = await actualizarUnaReserva(id, req.body);
 
         if (!actualizada) {
             return res.status(404).json({ message: "Reserva no encontrada" });
@@ -68,7 +71,7 @@ const borrarReserva = async (req, res) => {
     try {
         const { id } = req.params;
         await connect();
-        const eliminado = await ReservaModel.deleteReserva(id);
+        const eliminado = await eliminarUnaReserva(id);
 
         if (!eliminado) {
             return res.status(404).json({ message: "No se pudo eliminar: ID inexistente" });
@@ -79,6 +82,8 @@ const borrarReserva = async (req, res) => {
         res.status(500).json({ error: "Error al eliminar" });
     }
 };
+
+
 
 module.exports = {
     obtenerReservas,

@@ -54,10 +54,19 @@ const Reserva = mongoose.model('Reserva', reservaSchema); //crea la colección r
     });
  }
 
-
+ async function actualizarUnaReserva(id, datosActualizados) {
+   return await Reserva.findByIdAndUpdate(id, datosActualizados, { new: true });
+}
+async function eliminarUnaReserva(id) {
+   return await Reserva.findByIdAndDelete(id);
+}
  module.exports = {
     obtenerTodasLasReservas,
     crearUnaNuevaReserva,
     encontrarReservaPrevia,
-    obtenerReservasPorUsuario
+    obtenerReservasPorUsuario,
+    actualizarUnaReserva,
+    eliminarUnaReserva
+ 
+
  }

@@ -33,7 +33,7 @@ const usuarioSchema = new mongoose.Schema(
 //middleware pre save
  usuarioSchema.pre("save", async function () {
     if(!this.isModified('password')) return; //si no cambia no hace nada, si cambia la encripta
-    this.password = await bycrypt.hash(this.password, 10); //encripta la contraseña
+    this.password = await bcrypt.hash(this.password, 10); //encripta la contraseña
  });
 
 
@@ -51,7 +51,26 @@ async function encontrarUsuarioPorEmail(email) { //busca usuario por email
 
 }
 
+// Busca todos los usuarios en la base de datos
+async function encontrarTodosLosUsuarios() {
+    return await Usuario.find();
+}
+
+// Actualiza un usuario usando su ID
+async function actualizarUsuario(id, datos) {
+    // { new: true } sirve para que te devuelva el usuario ya cambiado
+    return await Usuario.findByIdAndUpdate(id, datos, { new: true });
+}
+
+// Elimina un usuario por su ID
+async function eliminarUsuario(id) {
+    return await Usuario.findByIdAndDelete(id);
+}
+
 module.exports = {
     crearNuevoUsuario,
-    encontrarUsuarioPorEmail
-}
+    encontrarUsuarioPorEmail,
+    encontrarTodosLosUsuarios,
+    actualizarUsuario,
+    eliminarUsuario
+};

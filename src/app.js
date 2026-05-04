@@ -1,18 +1,23 @@
 // iniciar la aplicación de express
 
 const express = require("express");
+const cors = require("cors")
+const { connect } = require("./database/mongoose");
+connect();
 const espaciosRoutes = require("./routes/espacios.routes")
 const reservarRoutes = require("./routes/reservas.routes");
 const usersRoutes = require ("./routes/users.routes")
 const errorHandler = require("./middlewares/errorHandler");
 const notFound = require("./middlewares/notFound");
 const app = express();
+
 const auth = require('./middlewares/auth')
 const checkUser = require('./middlewares/checkRoles')
 const checkAdmin = require('./middlewares/checkRoles')
 
 
 //middlewares
+app.use(cors())
 app.use(express.json());  
 
 app.use((req, res, next)=>{ 

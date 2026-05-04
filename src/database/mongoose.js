@@ -1,5 +1,5 @@
-const mongoose= require ("mongoose");
-const MONGO_URI=process.env.MONGO_URI;
+const mongoose = require("mongoose");
+const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) {
   throw new Error("Falta la variable MONGO_URI");
@@ -18,25 +18,25 @@ if (!cached) {
 
 //funcion asincrona para conectar a base de datos
 async function connect() {
-     try {
-//si ya esta conectado reutiliza (la devuelve y no vuelve a conectarse)
- if (cached.conn) {
-        return cached.conn;
-        }
-
+  try {
+    //si ya esta conectado reutiliza (la devuelve y no vuelve a conectarse)
+    if (cached.conn) {
+      return cached.conn;
+    }
 //si no hay conexion crea la promesa y la guarda en cashed.promise
-if (!cached.promise) {
-        cached.promise = mongoose.connect(MONGO_URI, {
-          bufferCommands: false, //le dice a mongoose que no guarde consultas pendientes si no hay conexion
-        });
-        console.log("MongoDB conectado correctamente.");
-        }
-        } catch (error) {
-             throw new Error(error);
-            }
+    if (!cached.promise) {
+      cached.promise = mongoose.connect(MONGO_URI, {
+        bufferCommands: true,
+      });
+      console.log("MongoDB conectado correctamente.");
+    }
 
-        cached.conn = await cached.promise; //espera que la promesa termine,cuando termina exitosamente guarda resultado
-        }
-        return cached.conn; //La devuelve para usarla en otros archivos.
+    cached.conn = await cached.promise; //espera que la promesa termine,cuando termina exitosamente guarda resultado
+    return cached.conn; //La devuelve para usarla en otros archivos.
 
-module.exports = {connect};
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+module.exports = { connect };
