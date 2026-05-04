@@ -1,4 +1,4 @@
-# 🏢 Sistema de Gestión de Espacios y Reservas (V2 - MongoDB)
+# 🏢 Sistema de Gestión de Espacios y Reservas (V2 - MongoDB local)
 
 API REST construida con **Node.js** y **Express**, diseñada para la gestión de espacios físicos y la reserva de los mismos. Esta implementación utiliza **MongoDB** como base de datos persistente y cuenta con un sistema robusto de autenticación y validación.
 
